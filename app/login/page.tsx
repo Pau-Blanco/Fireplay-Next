@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, AuthError } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 
@@ -19,9 +19,10 @@ export default function LoginPage() {
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, form.email, form.password);
-            router.push('/dashboard'); // Puedes redirigir a donde prefieras
-        } catch (err: any) {
-            setError(err.message);
+            router.push('/dashboard');
+        } catch (err) {
+            const firebaseError = err as AuthError;
+            setError(firebaseError.message);
         }
     };
 

@@ -4,11 +4,19 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
+interface Game {
+    id: number;
+    slug: string;
+    name: string;
+    background_image: string;
+    rating: number;
+}
+
 const API_KEY = process.env.NEXT_PUBLIC_RAWG_API_KEY;
 const PAGE_SIZE = 12;
 
 export default function GamesPage() {
-    const [games, setGames] = useState([]);
+    const [games, setGames] = useState<Game[]>([]);
     const [page, setPage] = useState(1);
 
     const searchParams = useSearchParams();
@@ -38,7 +46,7 @@ export default function GamesPage() {
             </h1>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {games.map((game: any) => (
+                {games.map((game: Game) => (
                     <Link href={`/game/${game.slug}`} key={game.id}>
                         <div className="bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden transition-transform duration-300 transform hover:scale-105 cursor-pointer border border-gray-200">
                             <img

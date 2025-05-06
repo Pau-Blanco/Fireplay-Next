@@ -2,13 +2,19 @@
 'use client';
 
 import { useState } from 'react';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, AuthError } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 
+interface FormData {
+    name: string;
+    email: string;
+    password: string;
+}
+
 export default function RegisterPage() {
     const router = useRouter();
-    const [form, setForm] = useState({ name: '', email: '', password: '' });
+    const [form, setForm] = useState<FormData>({ name: '', email: '', password: '' });
     const [error, setError] = useState('');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,8 +31,9 @@ export default function RegisterPage() {
             );
             await updateProfile(userCredential.user, { displayName: form.name });
             router.push('/login');
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err) {
+            const error = err as AuthError;
+            setError(error.message);
         }
     };
 
