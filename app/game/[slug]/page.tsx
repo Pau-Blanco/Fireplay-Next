@@ -1,4 +1,3 @@
-// app/game/[slug]/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -8,10 +7,38 @@ import FavoriteButton from '@/components/FavoriteButton';
 
 const API_KEY = process.env.NEXT_PUBLIC_RAWG_API_KEY;
 
+interface Platform {
+    platform: {
+        name: string;
+    };
+}
+
+interface Genre {
+    name: string;
+}
+
+interface Game {
+    id: number;
+    name: string;
+    background_image: string;
+    rating: number;
+    platforms: Platform[];
+    genres: Genre[];
+    description: string;
+    requirements?: {
+        minimum?: string;
+    };
+}
+
+interface Screenshot {
+    id: number;
+    image: string;
+}
+
 export default function GameDetailPage() {
     const { slug } = useParams();
-    const [game, setGame] = useState<any>(null);
-    const [screenshots, setScreenshots] = useState<any[]>([]);
+    const [game, setGame] = useState<Game | null>(null);
+    const [screenshots, setScreenshots] = useState<Screenshot[]>([]);
 
     useEffect(() => {
         if (!slug) return;
@@ -33,41 +60,34 @@ export default function GameDetailPage() {
 
     return (
         <main className="p-6 text-gray-800 mx-[10%]">
-            {/* Título del juego */}
             <h1 className="text-4xl font-extrabold text-gray-900 mb-6 text-center">
                 {game.name}
                 <FavoriteButton game={{ id: game.id, name: game.name, image: game.background_image }} />
             </h1>
 
-            {/* Contenedor principal para imagen y descripción */}
             <div className="flex flex-col md:flex-row items-start gap-6 mb-8">
-                {/* Imagen destacada */}
                 <div className="relative w-full md:w-1/2 max-h-[600px] overflow-hidden rounded-lg shadow-lg">
                     <img
                         src={game.background_image}
                         alt={game.name}
                         className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                     />
-                    {/* Información debajo de la imagen */}
                     <div className="mt-4 text-gray-900 mx-[10%] my-5">
                         <p className="text-lg font-semibold">Rating: {game.rating} / 5</p>
                         <p className="text-lg mt-2">
-                            <strong>Plataformas:</strong> {game.platforms?.map((p: any) => p.platform.name).join(', ')}
+                            <strong>Plataformas:</strong> {game.platforms?.map((p) => p.platform.name).join(', ')}
                         </p>
                         <p className="text-lg mt-1">
-                            <strong>Géneros:</strong> {game.genres?.map((g: any) => g.name).join(', ')}
+                            <strong>Géneros:</strong> {game.genres?.map((g) => g.name).join(', ')}
                         </p>
                     </div>
-
                 </div>
 
-                {/* Descripción del juego */}
                 <div className="text-gray-700 prose max-w-none md:w-1/2 text-justify">
                     <div dangerouslySetInnerHTML={{ __html: game.description }} />
                 </div>
             </div>
 
-            {/* Botón para ir a la ficha de compra */}
             <div className="mb-8">
                 <Link
                     href={`/product-sheety/${slug}`}
@@ -77,15 +97,13 @@ export default function GameDetailPage() {
                 </Link>
             </div>
 
-            {/* Requisitos mínimos */}
-            {game?.requirements && game.requirements.minimum && (
+            {game?.requirements?.minimum && (
                 <div className="bg-gray-100 p-6 rounded-lg shadow-md mb-8">
                     <h2 className="text-2xl font-semibold text-gray-900 mb-4">Requisitos Mínimos</h2>
                     <p className="text-gray-700">{game.requirements.minimum}</p>
                 </div>
             )}
 
-            {/* Capturas de pantalla */}
             {screenshots.length > 0 && (
                 <div className="mb-8">
                     <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">Capturas de pantalla</h2>
