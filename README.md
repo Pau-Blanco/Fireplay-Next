@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎮 Fireplay
 
-## Getting Started
+**Fireplay** es una aplicación web que te ofrece una inmensa selección de videojuegos para explorar y comprar. Cada título incluye información detallada, capturas de pantalla, y reseñas de usuarios. Además, puedes guardar tus juegos favoritos y disfrutar de una experiencia personalizada gracias a la autenticación de usuarios y almacenamiento en la nube mediante Firebase.
 
-First, run the development server:
+## 🚀 Características
+
+- Amplio catálogo de videojuegos proporcionado por la **RAWG API**
+- Información detallada de cada juego: descripción, capturas, y reseñas
+- Sistema de compras y favoritos
+- Autenticación de usuarios con **Firebase Authentication**
+- Almacenamiento de datos (usuarios, compras, mensajes, favoritos) con **Firebase Firestore**
+- Soporte para almacenamiento persistente usando **LocalStorage** y **Cookies**
+- Aplicación Progresiva (PWA) con soporte offline mediante `manifest.json` y `service worker`
+- Diseño moderno, rápido y responsive
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- ⚛️ **React 19**
+- 🌐 **Next.js 15** (con App Router y Server Components)
+- 🎨 **Tailwind CSS 4**
+- 🔥 **Firebase** (Authentication + Firestore)
+- 💾 **LocalStorage** y **Cookies**
+- 🎮 **RAWG API**
+- ⚙️ **Vite** (como sistema de desarrollo rápido integrado)
+- 📱 **Progressive Web App (PWA)**
+
+---
+
+## 📦 Instalación
+
+Sigue estos pasos para clonar e iniciar el proyecto localmente:
 
 ```bash
+# 1. Clona este repositorio
+git clone https://github.com/tu-usuario/fireplay.git
+
+# 2. Entra al directorio del proyecto
+cd fireplay
+
+# 3. Instala las dependencias
+npm install
+
+# 4. Ejecuta el servidor de desarrollo
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
