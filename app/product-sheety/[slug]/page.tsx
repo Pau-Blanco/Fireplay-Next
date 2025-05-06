@@ -13,7 +13,10 @@ interface Game {
     name: string;
     background_image: string;
     description: string;
-    [key: string]: any; // For other potential properties we might not use
+    // Add any other properties you actually use from the API response
+    // rating?: number;
+    // released?: string;
+    // etc...
 }
 
 interface CartItem {
@@ -35,7 +38,7 @@ export default function ProductSheetPage() {
 
         const fetchGame = async () => {
             const res = await fetch(`https://api.rawg.io/api/games/${slug}?key=${API_KEY}`);
-            const data = await res.json();
+            const data: Game = await res.json(); // Type assertion here
             setGame(data);
 
             // Generate random price between 20 and 70 €
@@ -46,6 +49,7 @@ export default function ProductSheetPage() {
         fetchGame();
     }, [slug]);
 
+    // ... rest of your component remains the same ...
     const handleAddToCart = () => {
         if (!game) return;
 
