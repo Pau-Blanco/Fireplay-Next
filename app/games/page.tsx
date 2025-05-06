@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
@@ -15,18 +15,15 @@ interface Game {
 const API_KEY = process.env.NEXT_PUBLIC_RAWG_API_KEY;
 const PAGE_SIZE = 12;
 
-export default function GamesPage() {
+function GamesContent() {
     const [games, setGames] = useState<Game[]>([]);
     const [page, setPage] = useState(1);
-
     const searchParams = useSearchParams();
     const query = searchParams.get('q');
 
     useEffect(() => {
         const fetchGames = async () => {
             let url = `https://api.rawg.io/api/games?key=${API_KEY}&page=${page}&page_size=${PAGE_SIZE}`;
-
-            // Si hay búsqueda, añadir el parámetro
             if (query) {
                 url += `&search=${encodeURIComponent(query)}`;
             }
@@ -37,7 +34,7 @@ export default function GamesPage() {
         };
 
         fetchGames();
-    }, [page, query]); // añadir `query` para actualizar la búsqueda
+    }, [page, query]);
 
     return (
         <main className="p-10 mx-[10%]">
@@ -46,7 +43,7 @@ export default function GamesPage() {
             </h1>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {games.map((game: Game) => (
+                {games.map((game) => (
                     <Link href={`/game/${game.slug}`} key={game.id}>
                         <div className="bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden transition-transform duration-300 transform hover:scale-105 cursor-pointer border border-gray-200">
                             <img
@@ -79,5 +76,13 @@ export default function GamesPage() {
                 </button>
             </div>
         </main>
+    );
+}
+
+export default function GamesPage() {
+    return (
+        <Suspense fallback={<div className="p-10 mx-[10%]">Cargando...</div>}>
+            <GamesContent />
+        </Suspense>
     );
 }
