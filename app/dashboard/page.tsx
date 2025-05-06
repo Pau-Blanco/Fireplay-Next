@@ -6,6 +6,7 @@ import { auth, db } from "@/lib/firebase"
 import { doc, getDoc, collection, query, where, getDocs } from "firebase/firestore"
 import ProtectedRoute from "@/components/ProtectedRoute"
 import Link from "next/link"
+import { Timestamp } from "firebase/firestore"
 
 interface Game {
     id: number
@@ -19,7 +20,7 @@ interface Message {
     name: string
     email: string
     message: string
-    createdAt?: any
+    createdAt?: Timestamp | null
 }
 
 export default function DashboardPage() {
