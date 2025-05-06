@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation'; // ✅ NUEVO
+import { useSearchParams } from 'next/navigation';
 
 const API_KEY = process.env.NEXT_PUBLIC_RAWG_API_KEY;
 const PAGE_SIZE = 12;
@@ -11,8 +11,8 @@ export default function GamesPage() {
     const [games, setGames] = useState([]);
     const [page, setPage] = useState(1);
 
-    const searchParams = useSearchParams(); // ✅ NUEVO
-    const query = searchParams.get('q');    // ✅ NUEVO
+    const searchParams = useSearchParams();
+    const query = searchParams.get('q');
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -29,7 +29,7 @@ export default function GamesPage() {
         };
 
         fetchGames();
-    }, [page, query]); // ✅ añadir `query` para actualizar la búsqueda
+    }, [page, query]); // añadir `query` para actualizar la búsqueda
 
     return (
         <main className="p-10 mx-[10%]">

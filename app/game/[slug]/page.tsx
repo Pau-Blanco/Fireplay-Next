@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import Link from 'next/link'; // 👈 Importamos Link para navegación
+import Link from 'next/link';
 import FavoriteButton from '@/components/FavoriteButton';
 
 const API_KEY = process.env.NEXT_PUBLIC_RAWG_API_KEY;
